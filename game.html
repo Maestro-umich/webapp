@@ -12,6 +12,7 @@
     <header>
         <button id="logo"><img src="images/maestro.png" alt="maestro"></button>
         <h1>M a e s t r o</h1>
+        <button>Quit</button>
     </header>
     <div id="game_image">
         <h2>What chord do you hear?</h2>
@@ -22,12 +23,15 @@
         <button id="no_access">I don't have access to a piano</button>
     </div>
     <div id="identify_chord">
-        <form>
+        <form onsubmit="return false">
             <label for="answer">Answer:</label><br>
-            <input type="text" id="answer" name="answer" placeholder="Ex: C#, C sharp, B flat, A minor, etc."><br>
+            <div>
+                <input type="text" id="answer" name="answer" placeholder="Ex: C#, Bb, etc.">
+                <button id="help" aria-label="help"><img src="images/help_black.png" alt="help"></button>
+            </div>
             <input type="submit" id="submit" name="submit" value="Submit">
+            <button id="play_again">Play again</button>
         </form>
-        <button id="play_again">Play again</button>
     </div>
     <footer>
         <a href="about.html">About Us</a>

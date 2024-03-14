@@ -24,13 +24,22 @@ div {
 
 #game_image {
     display: block;
-    width: 50%;
+    width: 50vmin;
     margin: 30px auto 0px auto;
+}
+
+#help {
+    display: inline;
+    position: absolute;
+    top: -4px;
+    left: 84%;
+    margin: 0px;
+    background-color: transparent;
 }
 
 header {
     display: grid;
-    grid-template-columns: 1fr 7fr;
+    grid-template-columns: 1fr 6fr 1fr;
     padding: 10px 10px 0px 10px;
     text-align: left;
     column-gap: 10px;
@@ -38,8 +47,9 @@ header {
 }
 
 h1 {
-    font-size: 3.5em;
+    font-size: 10vmin;
     font-weight: bolder;
+    margin: auto;
 }
 
 h2 {
@@ -49,6 +59,7 @@ h2 {
 
 button, input[type=submit] {
     display: block;
+    height: fit-content;
     background-color: #d29a87;
     font-size: 18pt;
     margin: 5% auto;
@@ -56,10 +67,19 @@ button, input[type=submit] {
     border-radius: 30px;
 }
 
+header button {
+    margin: auto;
+}
+
 button:hover, input[type=submit]:hover {
     background-color: #fac5ac;
     text-decoration: solid underline;
 }
+
+form div {
+    position: relative;
+}
+
 
 label {
     display: inline-block;
@@ -77,7 +97,7 @@ input[type=text] {
     width: 70%;
     text-align: left;
     padding: 2px 10px;
-    margin: 5px;
+    margin-top: 5px;
 }
 
 ::placeholder {
@@ -94,4 +114,14 @@ footer {
 
 a:hover {
     text-decoration: solid underline;
+}
+
+@media  screen and (min-width: 460px) {
+    #game_image {
+        width: 35vh;
+    }
+
+    button, input[type=submit] {
+        margin: 20px auto;
+    }
 }
