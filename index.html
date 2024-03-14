@@ -3,9 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora">
     <title>Maestro</title>
 </head>
 <body>
-    
+    <div><img src="images/maestro.png" alt="maestro logo" id="biglogo"></div>
+    <div>
+        <h1>M a e s t r o</h1>
+        <h2>A second set of ears.</h2>
+        <button id="start"><a href="game.html">Get Started!</a></button>
+    </div>
+    <footer>
+        <a href="about.html">About Us</a>
+    </footer>
+    <script>
+        document.querySelector('#start').addEventListener('click', function() {
+            window.location.href = "game.html"
+        })
+    </script>
 </body>
 </html>
