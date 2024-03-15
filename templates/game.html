@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora">
     <title>Maestro</title>
 </head>
 <body>
     <header>
-        <button id="logo"><img src="images/maestro.png" alt="maestro"></button>
+        <button id="logo"><img src="../images/maestro.png" alt="maestro"></button>
         <h1>M a e s t r o</h1>
         <button>Quit</button>
     </header>
     <div id="game_image">
         <h2>What chord do you hear?</h2>
-        <img src="images/maestro.png" alt="">
+        <img src="../images/maestro.png" alt="">
     </div>
     <div id="play_chord" hidden>
         <button id="ready">Ready!</button>
@@ -27,7 +27,7 @@
             <label for="answer">Answer:</label><br>
             <div>
                 <input type="text" id="answer" name="answer" placeholder="Ex: C#, Bb, etc.">
-                <button id="help" aria-label="help"><img src="images/help_black.png" alt="help"></button>
+                <button id="help" aria-label="help"><img src="../images/help_black.png" alt="help"></button>
             </div>
             <input type="submit" id="submit" name="submit" value="Submit">
             <button id="play_again">Play again</button>
@@ -44,7 +44,7 @@
     <footer>
         <a href="about.html">About Us</a>
     </footer>
-    <script src="js/game.js"></script>
+    <script src="../js/game.js"></script>
     <script>
         document.querySelector("header").addEventListener("click", function() {
             window.location.href = "index.html"

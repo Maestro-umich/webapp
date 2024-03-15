@@ -11,7 +11,7 @@ div {
 
 #biglogo {
     display: block;
-    width: 60%;
+    width: 60vmin;
     margin: 30px auto 0px auto;
 }
 

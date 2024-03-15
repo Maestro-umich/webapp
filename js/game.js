@@ -5,6 +5,7 @@ var tstartY = 0;
 var tendX = 0;
 var tendY = 0;
 var ans;
+var correct;
 
 var body = document.querySelector('body');
 var textBox = document.querySelector("#answer")
@@ -42,7 +43,13 @@ document.querySelector('#submit').addEventListener('click', function() {
     ans = textBox.value.replace(/\s+/g, "");
     console.log("Sanitized answer: " + ans);
 
-    // Sending sanitized answer to the Flask server
+    if (ans == correct) {
+        textBox.style.border = "solid green 3px";
+    } else {
+        textBox.style.border = "solid red 3px";
+    }
+
+    /*// Sending sanitized answer to the Flask server
     fetch('/check_answer', {
         method: 'POST',
         headers: {
@@ -60,7 +67,7 @@ document.querySelector('#submit').addEventListener('click', function() {
     })
     .catch((error) => {
         console.error('Error:', error);
-    })
+    })*/
 });
 
 document.querySelector('#help').addEventListener('click', function() {
@@ -75,6 +82,17 @@ function nextQuestion() {
     // reset + modify DOM
     textBox.style.border = "solid #00303b 1px";
     textBox.value = ""; // clear user input
+
+    // TODO fetch question and answer from flask
+    fetch('/game/question_selector', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json());
+    console.log(response.correct_ans);
+    correct = response.correct_ans;
 };
 
 /*
