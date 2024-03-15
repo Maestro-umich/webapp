@@ -1,2 +1,0 @@
-"""Maestro development configuration."""
-

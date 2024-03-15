@@ -1,10 +1,11 @@
+import flask
 from flask import Flask, render_template, request, jsonify
 import random
 import pygame
 import maestro
 import pathlib
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 
 class GameView:
     def __init__(self):
