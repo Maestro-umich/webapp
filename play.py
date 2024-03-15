@@ -292,7 +292,7 @@ def random_selector():
     file_path = MAESTRO_ROOT + f"MIDI/{FolderIndex[n]}/Triad/{triad_type}/{randFile}.mid"
     return file_path, randFile
 
-@app.route('/play_again', methods=['POST'])
+@app.route('/play_again', methods=['GET'])
 def play_chord(file_path, randFile):
     """Plays chords from midi file"""
     try:
