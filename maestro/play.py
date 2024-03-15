@@ -4,10 +4,11 @@ import time
 import os
 import random
 import maestro
-
 import pathlib
+from flask import Flask, request, jsonify
 MAESTRO_ROOT = str(pathlib.Path(__file__).resolve().parent)
 SHEET_MUSIC_FOLDER = MAESTRO_ROOT + '/maestro/' + 'sheetMusicPhotos'
+
 
 """0-6 is major, 7-13 is minor"""
 CMajor_Aminor_01 = {
@@ -289,10 +290,10 @@ def random_selector():
     else:
         triad_type = "Minor"
     file_path = MAESTRO_ROOT + f"MIDI/{FolderIndex[n]}/Triad/{triad_type}/{randFile}.mid"
-    play_chord(file_path)
+    return file_path, randFile
 
-
-def play_chord(file_path):
+@app.route('/play_again', methods=['POST'])
+def play_chord(file_path, randFile):
     """Plays chords from midi file"""
     try:
         pygame.init()
@@ -306,10 +307,18 @@ def play_chord(file_path):
     except Exception as e:
         print(f"An error occurred: {e}")
 
+@app.route('/check_answer', methods=['POST'])
+def check_answer(randFile):
+    data = request.json
+    user_input = data['answer']
+    is_correct = user_input == randFile
+    return jsonify({"correct": is_correct})
 
 if __name__ == "__main__":
     # Replace 'your_file.mid' with the path to your MIDI file
     count = 0
     while (count < 20):
-        random_selector()
+        curAns, filePath = random_selector()
+        play_chord(filePath, curAns)
+        check_answer(curAns)
         count += 1

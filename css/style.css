@@ -37,6 +37,27 @@ div {
     background-color: transparent;
 }
 
+#help_box {
+    display: none;
+    position: fixed;
+    top: 25%;
+    left: 10%;
+    width: 80%;
+    height: fit-content;
+    padding: 10%;
+    background-color: #00303b;
+    color: #fefce9;
+    border: solid #d29a87 3px;
+    border-radius: 15px;
+    text-align: left;
+}
+
+#exit_help {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+}
+
 header {
     display: grid;
     grid-template-columns: 1fr 6fr 1fr;

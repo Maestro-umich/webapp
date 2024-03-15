@@ -5,10 +5,12 @@ var tstartY = 0;
 var tendX = 0;
 var tendY = 0;
 var ans;
-var correct;
 
 var body = document.querySelector('body');
 var textBox = document.querySelector("#answer")
+var helpBox = document.querySelector('#help_box');
+
+window.onload = nextQuestion();
 
 body.addEventListener('touchstart', function(event) {
     tstartX = event.screenX;
@@ -18,50 +20,67 @@ body.addEventListener('touchstart', function(event) {
 body.addEventListener('touchend', function(event) {
     tendX = event.screenX;
     tendY = event.screenY;
-    handleSwipe();
+    if (tendX < tstartX) {
+        console.log("Swiped Left")
+        nextQuestion();
+    }
 }, false);
 
 // Double click to move to next question for computer testing
 body.addEventListener('dblclick', function() {
     console.log("Double-clicked");
-    handleSwipe();
+    nextQuestion();
 });
 
 document.querySelector('#play_again').addEventListener('click', function() {
-    // play chord
+    // TODO play chord
 })
 
 document.querySelector('#submit').addEventListener('click', function() {
     // input sanitization
     console.log("Submitted");
-    ans = textBox.value;
-    console.log("Unsanitized answer: " + ans);
-    ans = ans.toLowerCase();
-    ans = ans.replace(/\s+/g, "");
-    //ans = ans.replace('#', "sharp");
+    ans = textBox.value.replace(/\s+/g, "");
     console.log("Sanitized answer: " + ans);
 
-    // compare to correct + modify DOM accordingly
-    if (ans == correct) {
-        textBox.style.border = "solid green 3px"
-    }
-    else {
-        textBox.style.border = "solid red 3px"
-    }
+    // Sending sanitized answer to the Flask server
+    fetch('/check_answer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ answer: ans }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.correct) {
+            textBox.style.border = "solid green 3px";
+        } else {
+            textBox.style.border = "solid red 3px";
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    })
 });
 
-function handleSwipe() {
-    // TODO check if left swipe
+document.querySelector('#help').addEventListener('click', function() {
+    helpBox.style.display = 'block';
+})
+
+document.querySelector('#exit_help').addEventListener('click', function() {
+    helpBox.style.display = 'none';
+})
+
+function nextQuestion() {
     // reset + modify DOM
     textBox.style.border = "solid #00303b 1px";
     textBox.value = ""; // clear user input
-
-    correct = genQuestion();
 };
 
+/*
 function genQuestion() {
-    qType = qTypes[Math.floor(Math.random() * qTypes.length)];
-    chord = 'C#'; // replace with randomly generated chord
+    qType = qTypes[Math.floor(Math.random() * qTypes.length)]; // picks random question type
+    chord = 'C#'; // TODO replace with randomly generated chord
     console.log(qType);
 
     const playButton = document.querySelector('#play_again');
@@ -70,7 +89,7 @@ function genQuestion() {
 
     switch(qType) {
         case "sheetMusicPhotos":
-            //imgSrc = "../" + qType + "/" + chord + ".png"; // TODO replace file extension
+            //imgSrc = "../" + qType + "/" + chord + ".png"; // TODO fix file path
             //image.src = imgSrc;
             playButton.style.visibility = "hidden";
             question.textContent = "What chord is shown below?";
@@ -83,5 +102,5 @@ function genQuestion() {
             break;
     }
 
-    return chord;
-}
+    return chord; // returns chord to be stored as correct answer
+} */
