@@ -35,6 +35,14 @@ body.addEventListener('dblclick', function() {
 
 document.querySelector('#play_again').addEventListener('click', function() {
     // TODO play chord
+    console.log("Playing Chord");
+    fetch('game/play_again', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json());
 })
 
 document.querySelector('#submit').addEventListener('click', function() {
@@ -82,6 +90,7 @@ function nextQuestion() {
     // reset + modify DOM
     textBox.style.border = "solid #00303b 1px";
     textBox.value = ""; // clear user input
+    console.log("Fetching question");
 
     // TODO fetch question and answer from flask
     fetch('/game/question_selector', {
@@ -90,9 +99,12 @@ function nextQuestion() {
             'Content-Type': 'application/json',
         },
     })
-    .then(response => response.json());
-    console.log(response.correct_ans);
-    correct = response.correct_ans;
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.correct_ans);
+        correct = data.correct_ans;
+    })
+    .catch(error => console.error('Error:', error));
 };
 
 /*
