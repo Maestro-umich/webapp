@@ -44,10 +44,15 @@ document.querySelector('#submit').addEventListener('click', function() {
 
     if (ans == correct) {
         textBox.style.border = "solid green 3px";
+        document.querySelector('#next').textContent = "Next";
     } else {
         textBox.style.border = "solid red 3px";
     }
 });
+
+document.querySelector('#next').addEventListener('click', function() {
+    nextQuestion();
+})
 
 document.querySelector('#help').addEventListener('click', function() {
     helpBox.style.display = 'block';
@@ -61,6 +66,7 @@ function nextQuestion() {
     // reset + modify DOM
     textBox.style.border = "solid #00303b 1px";
     textBox.value = ""; // clear user input
+    document.querySelector('#next').textContent = "Skip";
     console.log("Fetching question");
 
     // TODO fetch question and answer from flask
