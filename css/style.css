@@ -1,0 +1,148 @@
+body {
+    background-color: #fefce9;
+    color: #00303b;
+    font-family: "Lora", Arial;
+    text-align: center;
+}
+
+div {
+    width: 100%;
+}
+
+#biglogo {
+    display: block;
+    width: 60vmin;
+    margin: 30px auto 0px auto;
+}
+
+#logo {
+    padding: 0px;
+    margin: 0px;
+    background-color: transparent;
+    height: 3.5em;
+}
+
+#game_image {
+    display: block;
+    width: 50vmin;
+    margin: 30px auto 0px auto;
+}
+
+#help {
+    display: inline;
+    position: absolute;
+    top: -4px;
+    left: 84%;
+    margin: 0px;
+    background-color: transparent;
+}
+
+#help_box {
+    display: none;
+    position: fixed;
+    top: 25%;
+    left: 10%;
+    width: 80%;
+    height: fit-content;
+    padding: 10%;
+    background-color: #00303b;
+    color: #fefce9;
+    border: solid #d29a87 3px;
+    border-radius: 15px;
+    text-align: left;
+}
+
+#exit_help {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+}
+
+header {
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr;
+    padding: 10px 10px 0px 10px;
+    text-align: left;
+    column-gap: 10px;
+    border-bottom: solid #00303b 2px;
+}
+
+h1 {
+    font-size: 10vmin;
+    font-weight: bolder;
+    margin: auto;
+}
+
+h2 {
+    font-size: 14pt;
+    font-weight: light;
+}
+
+button, input[type=submit] {
+    display: block;
+    height: fit-content;
+    background-color: #d29a87;
+    font-size: 18pt;
+    margin: 5% auto;
+    padding: 10px 20px;
+    border-radius: 30px;
+}
+
+header button {
+    margin: auto;
+}
+
+button:hover, input[type=submit]:hover {
+    background-color: #fac5ac;
+    text-decoration: solid underline;
+}
+
+form div {
+    position: relative;
+}
+
+
+label {
+    display: inline-block;
+    width: 70%;
+    height: fit-content;
+    text-align: left;
+    margin: 0px auto;
+    padding: 0px 10px;
+}
+
+input[type=text] {
+    background-color: white;
+    border: solid #00303b 1px;
+    border-radius: 10px;
+    width: 70%;
+    text-align: left;
+    padding: 2px 10px;
+    margin-top: 5px;
+}
+
+::placeholder {
+    color: #717e7a;
+}
+
+footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0%;
+    padding: 20px;
+    border-top: solid #00303b 2px;
+}
+
+a:hover {
+    text-decoration: solid underline;
+}
+
+@media  screen and (min-width: 460px) {
+    #game_image {
+        width: 35vh;
+    }
+
+    button, input[type=submit] {
+        margin: 20px auto;
+    }
+}
