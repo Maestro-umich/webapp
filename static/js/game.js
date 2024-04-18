@@ -1,7 +1,4 @@
-var tstartX = 0;
-var tstartY = 0;
-var tendX = 0;
-var tendY = 0;
+var mode = new URLSearchParams(window.location.search).get('mode')
 var ans;
 var correct;
 
@@ -11,36 +8,23 @@ var helpBox = document.querySelector('#help_box');
 
 window.onload = nextQuestion();
 
-body.addEventListener('touchstart', function(event) {
-    tstartX = event.screenX;
-    tstartY = event.screenY;
-}, false);
-
-body.addEventListener('touchend', function(event) {
-    tendX = event.screenX;
-    tendY = event.screenY;
-    if (tendX < tstartX) {
-        console.log("Swiped Left")
-        nextQuestion();
-    }
-}, false);
-
-// Double click to move to next question for computer testing
-body.addEventListener('dblclick', function() {
-    console.log("Double-clicked");
-    nextQuestion();
-});
-
 document.querySelector('#play_again').addEventListener('click', function() {
     console.log("Playing Chord");
     playChord(); // Call the playChord function when the button is clicked
 });
+
+document.querySelector('#play_c').addEventListener('click', function() {
+    console.log("Playing C");
+    // TODO: Play C
+})
 
 document.querySelector('#submit').addEventListener('click', function() {
     // input sanitization
     console.log("Submitted");
     ans = textBox.value.replace(/\s+/g, "");
     console.log("Sanitized answer: " + ans);
+
+    // TODO: Add code to update user history in database
 
     if (ans == correct) {
         textBox.style.border = "solid green 3px";

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora">
+    <title>Results</title>
+</head>
+<body>
+    <header>
+        <button id="logo"><img src="{{ url_for('static', filename='images/maestro.png') }}" alt="maestro"></button>
+        <h1>M a e s t r o</h1>
+    </header>
+
+    <h2>Results</h2>
+
+    <div class="col2">
+        <h3>Correct</h3>
+        <h3>Incorrect</h3>
+        <div>
+            <ul>
+
+            </ul>
+        </div>
+        <div>
+            <ul>
+                
+            </ul>
+        </div>
+    </div>
+
+    <div>
+        <a class="button" href="{{ url_for('game', mode='focus') }}">Practice Incorrect</a>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/results.js') }}"></script>
+    <script>
+        document.querySelector("header").addEventListener("click", function() {
+            window.location.href = "{{ url_for('index') }}"
+        })
+    </script>
+</body>
+</html>

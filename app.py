@@ -175,6 +175,9 @@ class GameView:
 
     def game(self):
         return render_template('game.html')
+    
+    def results(self):
+        return render_template('results.html')
 
     def question_selector(self):
         """Randomly selects which chords to play"""
@@ -199,6 +202,7 @@ class GameView:
 game_view = GameView()
 app.add_url_rule('/', view_func=game_view.index)
 app.add_url_rule('/game', view_func=game_view.game)
+app.add_url_rule('/results', view_func=game_view.results)
 app.add_url_rule('/question_selector', view_func=game_view.question_selector, methods=['GET'])
 app.add_url_rule('/play_chord', view_func=game_view.play_chord, methods=['GET'])
 

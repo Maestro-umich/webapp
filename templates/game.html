@@ -24,14 +24,17 @@
     </div>
     <div id="identify_chord">
         <form onsubmit="return false">
-            <label for="answer">Answer:</label><br>
+            <button id="play_again">Play Chord</button>
+            <button id="play_c">Compare to C</button>
             <div>
+                <label for="answer">Answer:</label>
                 <input type="text" id="answer" name="answer" placeholder="Ex: C#, Bb, etc.">
-                <button id="help" aria-label="help"><img src="{{ url_for('static', filename='images/help_black.png') }}" alt="help"></button>
+                <button id="help" aria-label="help"><img src="../images/help_black.png" alt="help"></button>
             </div>
             <input type="submit" id="submit" name="submit" value="Submit">
-            <button id="play_again">Play Chord</button>
             <button id="next">Skip</button>
+            <a href="{{ url_for('results') }}">View Results</a>
+            
         </form>
     </div>
     <div id="help_box">
