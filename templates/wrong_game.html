@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora">
+    <title>Maestro</title>
+</head>
+<body>
+    <header>
+        <button id="logo"><img src="{{ url_for('static', filename='images/maestro.png') }}" alt="maestro"></button>
+        <h1>M a e s t r o</h1>
+        <a href="{{ url_for('index') }}" class="button">Quit</a>
+    </header>
+    <div id="game_image">
+        <h2>What chord do you hear?</h2>
+        <img src="{{ url_for('static', filename='images/maestro.png') }}" alt="">
+    </div>
+    <div id="play_chord" hidden>
+        <button id="ready">Ready!</button>
+        <button id="no_access">I don't have access to a piano</button>
+    </div>
+    <div id="identify_chord">
+        <form onsubmit="return false">
+            <button id="play_again">Play Chord</button>
+            <button id="play_c">Compare to C</button>
+            <div>
+                <label for="answer">Answer:</label>
+                <input type="text" id="answer" name="answer" placeholder="Ex: C#, Bb, etc.">
+                <button id="help" aria-label="help"><img src="{{ url_for('static', filename='images/help_black.png') }}" alt="help"></button>
+            </div>
+            <input type="submit" id="submit" name="submit" value="Submit">
+            <button id="next">Skip</button>
+            
+        </form>
+    </div>
+    <div id="help_box">
+        <button id="exit_help">x</button>
+        <h3>Answer Formatting</h3>
+        <p>The root note should be capitalized, followed by a '#' if the chord is sharp, or a lower-case 'b' if the chord is flat. If the chord is minor, it should be followed by 'm'. Otherwise, no addition input is necessary. All whitespace, such as spaces, is ignored.</p>
+        <br>
+        <h3>Continuing to next question</h3>
+        <p>Questions can be skipped at anytime. To do so, mobile users can simply swipe left, or double-tap anywhere on the page. Similarly, desktop users can double-click to move on to the next question.</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/wrong_game.js') }}"></script>
+    <script>
+        document.querySelector("header").addEventListener("click", function() {
+            window.location.href = "{{ url_for('index') }}"
+        })
+    </script>
+</body>
+</html>
