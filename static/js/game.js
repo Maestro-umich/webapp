@@ -1,56 +1,56 @@
-var tstartX = 0;
-var tstartY = 0;
-var tendX = 0;
-var tendY = 0;
+var mode = new URLSearchParams(window.location.search).get('mode')
 var ans;
 var correct;
 
 var body = document.querySelector('body');
 var textBox = document.querySelector("#answer")
 var helpBox = document.querySelector('#help_box');
+var correct_ans = [];
+var incorrect_ans = [];
+
+var submit_count = 0;
 
 window.onload = nextQuestion();
-
-body.addEventListener('touchstart', function(event) {
-    tstartX = event.screenX;
-    tstartY = event.screenY;
-}, false);
-
-body.addEventListener('touchend', function(event) {
-    tendX = event.screenX;
-    tendY = event.screenY;
-    if (tendX < tstartX) {
-        console.log("Swiped Left")
-        nextQuestion();
-    }
-}, false);
-
-// Double click to move to next question for computer testing
-body.addEventListener('dblclick', function() {
-    console.log("Double-clicked");
-    nextQuestion();
-});
 
 document.querySelector('#play_again').addEventListener('click', function() {
     console.log("Playing Chord");
     playChord(); // Call the playChord function when the button is clicked
 });
 
+document.querySelector('#play_c').addEventListener('click', function() {
+    console.log("Playing C");
+    playC();
+})
+
 document.querySelector('#submit').addEventListener('click', function() {
     // input sanitization
+    console.log(submit_count);
     console.log("Submitted");
     ans = textBox.value.replace(/\s+/g, "");
     console.log("Sanitized answer: " + ans);
 
     if (ans == correct) {
+        if(submit_count == 0){
+            correct_ans.push(correct);
+            localStorage.setItem('correctChords', JSON.stringify(correct_ans));
+        }
         textBox.style.border = "solid green 3px";
         document.querySelector('#next').textContent = "Next";
-    } else {
+    } 
+    else {
+        if(submit_count == 0){
+            incorrect_ans.push(correct);
+            localStorage.setItem('incorrectChords', JSON.stringify(incorrect_ans));
+        }
         textBox.style.border = "solid red 3px";
     }
+
+    submit_count += 1;
+
 });
 
 document.querySelector('#next').addEventListener('click', function() {
+    submit_count = 0;
     nextQuestion();
 })
 
@@ -80,6 +80,7 @@ function nextQuestion() {
     .then(data => {
         correct = data.correct_ans.replace(/%23/g, '#');
         console.log(correct);
+        console.log(data.file_path);
         updateAudioSource(data.file_path); // Setup the audio source
     })
     .catch(error => console.error('Error:', error));
@@ -99,4 +100,12 @@ function playChord() {
     } else {
         console.error('No audio source is set for playback.');
     }
+}
+
+function playC() {
+    var c_path = "static/MIDI/norm-level/01-CMajor-Aminor/Triad/Major/C.mp3";
+    var cMajorChord = new Audio(c_path);
+    cMajorChord.play().catch(function(error) {
+        console.error('Playback failed:', error);
+    });
 }
