@@ -41,22 +41,23 @@ div {
     margin: 6px 0px 0px 5px;
 }
 
-#help_box {
+#help_box, #ans_box {
     display: none;
     position: fixed;
-    top: 25%;
-    left: 10%;
-    width: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
     height: fit-content;
     padding: 10%;
     background-color: #00303b;
     color: #fefce9;
     border: solid #d29a87 3px;
     border-radius: 15px;
-    text-align: left;
+    text-align: center;
 }
 
-#exit_help {
+#exit_help, #exit_ans {
     position: absolute;
     top: 0px;
     right: 15px;
@@ -156,6 +157,8 @@ ul {
     border-top: solid #00303b 1px;
     text-align: left;
     height: 60vh;
+    padding-left: 10px;
+    overflow-y: auto;
 }
 
 ul li {
@@ -172,7 +175,7 @@ form {
     font-size: min(4vw, 14pt);
 }
 
-form>div, form>:last-child, form>div>:first-child {
+form>div, form>div>:first-child {
     grid-column: 1 / -1;
 }
 

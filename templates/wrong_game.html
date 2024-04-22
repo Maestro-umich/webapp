@@ -33,7 +33,8 @@
             </div>
             <input type="submit" id="submit" name="submit" value="Submit">
             <button id="next">Skip</button>
-            
+            <button id="show_ans">Show Answer</button>
+            <a href="{{ url_for('results') }}" class="button">View Results</a>
         </form>
     </div>
     <div id="help_box">
@@ -43,6 +44,10 @@
         <br>
         <h3>Continuing to next question</h3>
         <p>Questions can be skipped at anytime. To do so, mobile users can simply swipe left, or double-tap anywhere on the page. Similarly, desktop users can double-click to move on to the next question.</p>
+    </div>
+    <div id="ans_box">
+        <button id="exit_ans">x</button>
+        <h3>answer</h3>
     </div>
     <script src="{{ url_for('static', filename='js/wrong_game.js') }}"></script>
     <script>

@@ -6,6 +6,7 @@ var chordAudioSrc;
 var body = document.querySelector('body');
 var textBox = document.querySelector("#answer")
 var helpBox = document.querySelector('#help_box');
+var ansBox = document.querySelector('#ans_box');
 var correct_ans = [];
 var incorrect_ans = [];
 var incorrect_paths = [];
@@ -58,6 +59,15 @@ document.querySelector('#help').addEventListener('click', function() {
 
 document.querySelector('#exit_help').addEventListener('click', function() {
     helpBox.style.display = 'none';
+})
+
+document.querySelector('#show_ans').addEventListener('click', function() {
+    ansBox.style.display = 'block';
+    ansBox.querySelector('h3').textContent = correct;
+})
+
+document.querySelector('#exit_ans').addEventListener('click', function() {
+    ansBox.style.display = 'none';
 })
 
 function nextQuestion() {
