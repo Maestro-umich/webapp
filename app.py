@@ -8,6 +8,7 @@ class GameView:
         # Initialize member variables
         self.file_path = None
         self.randFile = None
+        self.wrong_paths = []
         self.CMajor_Aminor_01 = { 
             0: "C",
             1: "Dm",
@@ -174,10 +175,13 @@ class GameView:
         return render_template('index.html')
 
     def game(self):
-        return render_template('game.html')
+        return render_template('full_game.html')
     
     def results(self):
         return render_template('results.html')
+    
+    def wrong_game(self):
+        return render_template('wrong_game.html')
 
     def question_selector(self):
         """Randomly selects which chords to play"""
@@ -197,15 +201,48 @@ class GameView:
         except Exception as e:
             return str(e), 500
         
+    def practice_incorrect(self):
+        file_paths = request.json
+        for path in file_paths:
+            path = path.replace('#', '%23') #to avoid fragmenting URL
+            self.wrong_paths.append(path)
+        return jsonify({'message': 'File paths processed successfully'}), 200
+
+    def wrong_question_selector(self):
+        wrong_size = len(self.wrong_paths) - 1
+        n = random.randint(0, wrong_size)
+        self.randFile = self.extract_chord(self.file_path)
+        self.file_path = self.wrong_paths[n]
+        return jsonify({"correct_ans": self.randFile, "file_path": self.file_path})
+
+
+    def extract_chord(self, path):
+        # Find the position of the last slash
+        last_slash_index = path.rfind('/')
+    
+        # Find the position of the ".mp3" extension
+        mp3_index = path.rfind('.mp3')
+    
+        # Extract the substring between the last slash and ".mp3"
+        if last_slash_index != -1 and mp3_index != -1:
+            return path[last_slash_index + 1:mp3_index]
+        else:
+            return None
+
+    
+        
 
 # Register routes with class-based views
 game_view = GameView()
 app.add_url_rule('/', view_func=game_view.index)
 app.add_url_rule('/game', view_func=game_view.game)
 app.add_url_rule('/results', view_func=game_view.results)
+app.add_url_rule('/wrong_game', view_func=game_view.wrong_game)
 app.add_url_rule('/question_selector', view_func=game_view.question_selector, methods=['GET'])
 app.add_url_rule('/play_chord', view_func=game_view.play_chord, methods=['GET'])
+app.add_url_rule('/practice_incorrect', view_func=game_view.practice_incorrect, methods=['POST'])
+app.add_url_rule('/wrong_question_selector', view_func=game_view.wrong_question_selector, methods=['GET'])
+
 
 if __name__ == "__main__":
-    # Replace 'your_file.mid' with the path to your MIDI file
     app.run(debug=True)

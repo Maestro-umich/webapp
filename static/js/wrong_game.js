@@ -1,7 +1,6 @@
 var mode = new URLSearchParams(window.location.search).get('mode')
 var ans;
 var correct;
-var chordAudioSrc;
 
 var body = document.querySelector('body');
 var textBox = document.querySelector("#answer")
@@ -10,8 +9,6 @@ var ansBox = document.querySelector('#ans_box');
 var correct_ans = [];
 var incorrect_ans = [];
 var incorrect_paths = [];
-
-var submit_count = 0;
 
 window.onload = nextQuestion();
 
@@ -27,29 +24,18 @@ document.querySelector('#submit').addEventListener('click', function() {
     // input sanitization
     ans = textBox.value.replace(/\s+/g, "");
     if (ans == correct) {
-        if(submit_count == 0){
-            correct_ans.push(correct);
-            localStorage.setItem('correctChords', JSON.stringify(correct_ans));
-        }
+        //consider removing wrong if correct
         textBox.style.border = "solid green 3px";
         document.querySelector('#next').textContent = "Next";
     } 
     else {
-        if(submit_count == 0){
-            incorrect_ans.push(correct);
-            localStorage.setItem('incorrectChords', JSON.stringify(incorrect_ans));
-            incorrect_paths.push(chordAudioSrc); //unsure if i can access from here
-            localStorage.setItem('incorrectPaths', JSON.stringify(incorrect_paths));
-        }
         textBox.style.border = "solid red 3px";
     }
 
-    submit_count += 1;
 
 });
 
 document.querySelector('#next').addEventListener('click', function() {
-    submit_count = 0;
     nextQuestion();
 })
 
@@ -77,8 +63,8 @@ function nextQuestion() {
     document.querySelector('#next').textContent = "Skip";
     console.log("Fetching question");
 
-    // TODO fetch question and answer from flask
-    fetch('/question_selector', {
+    // TODO fetch question and answer from flask, CHANGE THE FUNC
+    fetch('/wrong_question_selector', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -87,8 +73,8 @@ function nextQuestion() {
     .then(response => response.json())
     .then(data => {
         correct = data.correct_ans.replace(/%23/g, '#');
-        console.log(correct);
         updateAudioSource(data.file_path); // Setup the audio source
+        console.log(correct);
     })
     .catch(error => console.error('Error:', error));
 };
